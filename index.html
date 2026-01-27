@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сеул vs Москва — сравнение по 5 параметрам</title>
+  <meta name="description" content="Сравнение Сеула и Москвы по 5 параметрам: бюджет, образование, климат, психическое здоровье, безопасность." />
+  <style>
+    :root{
+      --bg: #0b0d12;
+      --bg2:#0f1320;
+      --card:#12182a;
+      --text:#e9eefc;
+      --muted:#aab4d6;
+      --line: rgba(255,255,255,.10);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1100px;
+    }
+    [data-theme="light"]{
+      --bg:#f7f8fc;
+      --bg2:#ffffff;
+      --card:#ffffff;
+      --text:#121628;
+      --muted:#4b5578;
+      --line: rgba(10,20,40,.10);
+      --shadow: 0 20px 60px rgba(18,22,40,.10);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+                  radial-gradient(1200px 800px at 90% 10%, rgba(34,197,94,.22), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 18px; }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 8px 12px; border:1px solid var(--line); border-radius:999px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .btn{
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      padding: 10px 14px; border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.65));
+      border-color: rgba(124,92,255,.55);
+      box-shadow: 0 12px 35px rgba(124,92,255,.25);
+    }
+    .btn.ghost{ background: transparent; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(10,12,18,.55);
+      border-bottom: 1px solid var(--line);
+    }
+    [data-theme="light"] .topbar{ background: rgba(247,248,252,.70); }
+    .topbar .row{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width: 34px; height: 34px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(34,197,94,1));
+      box-shadow: 0 16px 35px rgba(0,0,0,.35);
+    }
+
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
+    }
+    .nav a{
+      padding: 8px 10px; border-radius: 999px;
+      border:1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .nav a:hover{ color: var(--text); border-color: var(--line); background: rgba(255,255,255,.05); }
+
+    /* Hero */
+    .hero{
+      padding: 34px 0 18px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+    .card{
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    [data-theme="light"] .card{ background: rgba(255,255,255,.85); }
+
+    .hero-main{ padding: 22px; }
+    .hero h1{
+      margin: 10px 0 10px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .hero p{ margin:0; color: var(--muted); font-size: 15px; }
+    .hero-actions{ display:flex; gap:10px; margin-top: 16px; flex-wrap:wrap; }
+
+    .hero-side{ padding: 18px; }
+    .mini{
+      display:grid; gap:12px;
+    }
+    .mini .tile{
+      padding: 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .tile .k{ color: var(--muted); font-size: 12px; }
+    .tile .v{ font-weight: 700; font-size: 14px; margin-top: 4px; }
+    .bar{
+      height: 9px; border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      margin-top: 10px;
+      border: 1px solid var(--line);
+    }
+    .bar > i{
+      display:block; height:100%;
+      width: var(--w, 50%);
+      background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(34,197,94,.85));
+    }
+
+    /* Controls */
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin: 12px 0 18px;
+    }
+    .controls input{
+      flex: 1 1 260px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline: none;
+    }
+    [data-theme="light"] .controls input{ background: rgba(255,255,255,.9); }
+    .controls input::placeholder{ color: rgba(170,180,214,.85); }
+
+    /* Sections */
+    section{ margin: 16px 0; }
+    .section-head{
+      display:flex; gap:10px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .section-head h2{ margin:0; font-size: 18px; letter-spacing: -.2px; }
+    .section-head .hint{ color: var(--muted); font-size: 13px; }
+
+    .compare-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 860px){
+      .compare-grid{ grid-template-columns: 1fr; }
+    }
+
+    .city{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .city::before{
+      content:"";
+      position:absolute; inset:-60px -80px auto auto;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,255,.20), transparent 60%);
+      filter: blur(2px);
+    }
+    .city.moscow::before{ background: radial-gradient(circle, rgba(34,197,94,.18), transparent 60%); }
+    .city h3{ margin: 0 0 6px; font-size: 16px; }
+    .city .meta{ color: var(--muted); font-size: 12px; margin-bottom: 10px; }
+    .city ul{ margin:0; padding-left: 18px; color: var(--text); }
+    .city li{ margin: 7px 0; color: var(--muted); }
+    .city li b{ color: var(--text); }
+
+    .takeaway{
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .takeaway b{ color: var(--text); }
+
+    /* Table view */
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.02);
+    }
+    .table th, .table td{
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+    .table th{
+      text-align:left;
+      color: var(--muted);
+      font-weight: 600;
+      background: rgba(255,255,255,.04);
+    }
+    .table td p{ margin: 0 0 8px; color: var(--muted); }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px; border-radius: 999px;
+      border:1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 26px;
+      padding: 18px 0 28px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+    .footgrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 860px){ .footgrid{ grid-template-columns: 1fr; } }
+
+    .muted{ color: var(--muted); }
+    .hide{ display:none !important; }
+    .kbd{
+      font-size: 12px; padding: 3px 8px; border:1px solid var(--line); border-radius: 10px; color: var(--muted);
+      background: rgba(255,255,255,.04);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="row">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div style="line-height:1.1">Сеул <span class="muted">vs</span> Москва</div>
+            <div class="muted" style="font-size:12px; margin-top:2px;">
+              сравнение по ключевым параметрам
+            </div>
+          </div>
+        </div>
+
+        <div class="nav" aria-label="Навигация">
+  <button class="btn ghost" id="themeBtn" title="Сменить тему">🌗 Тема</button>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="hero">
+      <div class="card hero-main">
+        <h1>Сравнение Сеула и Москвы по 5 ключевым параметрам</h1>
+        <p>
+          Аналитическое сравнение городов по условиям жизни, обучению,
+          климату, психологическому комфорту и уровню безопасности.
+        </p>
+
+        <div class="hero-actions">
+  <span class="pill">Хорошего дня ✨</span>
+  
+</div>
+
+      </div>
+
+      <div class="card hero-side">
+        <div class="mini">
+          <div class="tile">
+            <div class="k">Формат</div>
+            <div class="v">Сравнительный анализ</div>
+          </div>
+
+          <div class="tile">
+            <div class="k">Структура</div>
+            <div class="v">5 тематических разделов</div>
+          </div>
+
+          <div class="tile">
+            <div class="k">Назначение</div>
+            <div class="v">Оценка условий жизни</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD VIEW -->
+    <div id="cardsView">
+      <!-- 1. Budget -->
+<section id="budget" data-section>
+  <div class="section-head">
+    <h2>💸 Бюджет</h2>
+    <div class="hint">Жильё • Повседневные расходы</div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="city seoul" data-city="seoul">
+      <h3>Сеул</h3>
+      <div class="meta">Финансовые особенности</div>
+      <ul>
+        <li><b>Данные по стоимости жизни:</b> общий жизненный бюджет для одного человека ≈ $1 383/мес (~123 000 руб).</li>
+        <li><b>Аренда жилья:</b> ниже, чем в Москве (≈ $635/мес за базовое жильё, против ≈ $864 в Москве).</li>
+        <li><b>Средняя зарплата после налогов:</b> в Сеуле ≈ $1 954/мес, значительно выше, чем в Москве (≈ $881/мес).</li>
+      </ul>
+    </div>
+
+    <div class="city moscow" data-city="moscow">
+      <h3>Москва</h3>
+      <div class="meta">Финансовые особенности</div>
+      <ul>
+        <li><b>Прожиточный минимум:</b> в России на 1 января 2026 г. составляет примерно 18 939 руб/мес (порог бедности ниже этого уровня).</li>
+        <li><b>Средний МРОТ:</b> 27 093 руб/мес.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+      <!-- 2. Education -->
+      <!-- 2. Education -->
+<section id="education" data-section>
+  <div class="section-head">
+    <h2>🎓 Образование</h2>
+    <div class="hint">Система • Уровень • Университеты </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="city seoul" data-city="seoul">
+      <h3>Сеул</h3>
+      <div class="meta">Уровень и структура образования</div>
+      <ul>
+        <li>
+          <b>Уровень образования:</b>
+          Южная Корея — один из мировых лидеров по уровню образования:
+          ≈ 70–71 % взрослых в возрасте 25–34 лет имеют высшее образование
+          (самый высокий показатель среди стран ОЭСР — Организации экономического сотрудничества и развития;
+          при этом лишь ≈ 1 % имеют только базовое образование).
+        </li>
+        <li>
+          <b>Среднее образование:</b>
+          доля людей с полным средним образованием также очень высокая,
+          что отражает в целом сильную и структурированную образовательную систему.
+        </li>
+        <li>
+          <b>Университеты:</b>
+          Seoul National University занимает 62 место в списке лучших университетов мира,
+          за ним следует Korea Advanced Institute of Science and Technology,
+          находящийся на 82 месте
+          (по данным Times Higher Education).
+        </li>
+      </ul>
+    </div>
+
+    <div class="city moscow" data-city="moscow">
+      <h3>Москва</h3>
+      <div class="meta">Уровень и структура образования</div>
+      <ul>
+        <li>
+          <b>Система образования:</b>
+          образовательная система в Москве следует общим стандартам России;
+          представлены развитые программы общеобразовательной и дополнительной подготовки.
+        </li>
+        <li>
+          <b>Уровень образования:</b>
+          по международным оценкам Россия имеет высокий уровень базового образования,
+          однако доля людей с высшим образованием несколько ниже, чем в Южной Корее
+          (примерно 60 % по данным на 2025 год для Москвы).
+        </li>
+        <li>
+          <b>Университеты:</b>
+          самое высокое место среди московских вузов занимает
+          МГУ имени Ломоносова — 107 место в мировом рейтинге университетов
+          Times Higher Education на 2025 год;
+          далее следуют МФТИ и Бауманский университет.
+        </li>
+        <li>
+          <b>Доступность обучения:</b>
+          в Москве возможно как бесплатное, так и платное высшее образование
+          в зависимости от количества набранных баллов при поступлении.
+          При платном обучении средняя стоимость составляет около
+          450 000–500 000 рублей в год
+          (данные актуальны на 2025 год).
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+      <!-- 3. Climate -->
+<section id="climate" data-section>
+  <div class="section-head">
+    <h2>🌦️ Климат</h2>
+    <div class="hint">Тип климата • Температура • Экология</div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="city seoul" data-city="seoul">
+      <h3>Сеул</h3>
+      <div class="meta">Климатические условия</div>
+      <ul>
+        <li>
+          <b>Тип климата:</b>
+          умеренно-влажный климат: мягкая, прохладная зима и жаркое, влажное лето,
+          с муссонным сезоном в период с июня по август;
+          климатические колебания выраженные, но без экстремальной морозности,
+          характерной для Москвы.
+        </li>
+        <li>
+          <b>Температурный диапазон:</b>
+          в зимние месяцы температура колеблется от −6 до +4 °C,
+          а в летние — от +19 до +30 °C.
+        </li>
+        <li>
+          <b>Годовые пределы:</b>
+          в течение года температура, как правило, не опускается ниже −10 °C
+          и не поднимается выше +33 °C.
+        </li>
+      </ul>
+    </div>
+
+    <div class="city moscow" data-city="moscow">
+      <h3>Москва</h3>
+      <div class="meta">Климатические условия</div>
+      <ul>
+        <li>
+          <b>Тип климата:</b>
+          континентальный климат: холодная снежная зима
+          (средняя температура января от −10 до −6 °C)
+          и тёплое лето (в среднем от +20 до +25 °C).
+        </li>
+        <li>
+          <b>Экология:</b>
+          высокий уровень загрязнения воздуха, особенно в зимний период,
+          из-за транспорта и отопления;
+          часто фиксируются превышения ПДК
+          (предельно допустимой концентрации загрязняющих веществ).
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+      <!-- 4. Mental health -->
+<section id="mind" data-section>
+  <div class="section-head">
+    <h2>🧠 Психологическое здоровье</h2>
+    <div class="hint">Тревожность • Поддержка</div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="city seoul" data-city="seoul">
+      <h3>Сеул</h3>
+      <div class="meta">Психологическое состояние населения</div>
+      <ul>
+        <li>
+          <b>Статистика:</b>
+          в Южной Корее регулярно проводятся опросы для отслеживания
+          психологического состояния жителей; последний из них показал,
+          что около 25 % населения Сеула сталкивались с ментальными
+          заболеваниями в течение жизни.
+          Уровень тревоги составил 23,1 % по данным на 2024 год.
+        </li>
+        <li>
+          <b>Государственная политика:</b>
+          в стране ведётся активная работа в сфере психического здоровья,
+          однако показатели самоубийств остаются одними из самых высоких
+          среди развитых стран.
+        </li>
+      </ul>
+    </div>
+
+    <div class="city moscow" data-city="moscow">
+      <h3>Москва</h3>
+      <div class="meta">Психологическое состояние населения</div>
+      <ul>
+        <li>
+          <b>Индекс тревожности:</b>
+          в 2025 году Москва впервые за шесть лет уступила статус города
+          с самым высоким индексом тревожности Санкт-Петербургу.
+          Индекс тревоги в столице снизился на 20 % по сравнению с 2024 годом
+          и составил примерно 425,56.
+        </li>
+        <li>
+          <b>Поддержка и данные:</b>
+          в Москве относительно развито психолого-педагогическое сопровождение
+          в школах, однако данные о распространённости психических расстройств
+          в городе в открытых источниках крайне ограничены.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+      <!-- 5. Safety -->
+<section id="safety" data-section>
+  <div class="section-head">
+    <h2>🛡️ Безопасность</h2>
+    <div class="hint">Преступность  • Статистика</div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="city seoul" data-city="seoul">
+      <h3>Сеул</h3>
+      <div class="meta">Уровень общественной безопасности</div>
+      <ul>
+        <li>
+          <b>Общий уровень преступности:</b>
+          Сеул оценивается как более безопасный город по сравнению с Москвой
+          по уровню преступности: фиксируется более низкий уровень
+          зарегистрированных преступлений; рейтинги Numbeo также показывают
+          более низкие значения.
+        </li>
+        <li>
+          <b>Уровень убийств:</b>
+          в столичном регионе Южной Кореи уровень убийств традиционно низок —
+          примерно 1–1,1 случая на 100 000 жителей
+          (по региональной аналитике ОЭСР).
+        </li>
+        <li>
+          <b>Индекс преступности:</b>
+          индекс преступности в Сеуле на 2025 год составляет 24,9 балла,
+          что существенно ниже индекса преступности в России —
+          38,7 балла.
+        </li>
+      </ul>
+    </div>
+
+    <div class="city moscow" data-city="moscow">
+      <h3>Москва</h3>
+      <div class="meta">Уровень общественной безопасности</div>
+      <ul>
+        <li>
+          <b>Общий уровень преступности:</b>
+          общие рейтинги преступности показывают, что Москва имеет
+          более высокий уровень зарегистрированной преступности,
+          который оценивается как «умеренный» с тенденцией к росту.
+        </li>
+        <li>
+          <b>Насильственные преступления:</b>
+          уровень насильственных преступлений в Москве выше,
+          чем в Южной Корее по международным данным;
+          официальная статистика ОЭСР указывает на более высокую
+          вероятность убийства и насильственных действий.
+        </li>
+        <li>
+          <b>Статистика:</b>
+          за первые 10 месяцев 2025 года в Москве было зарегистрировано
+          102 056 преступлений
+          (по данным статистики «Москва 24»).
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    </div>
+
+    
+    
+  </main>
+
+  <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+    });
+  </script>
+</body>
+</html>
